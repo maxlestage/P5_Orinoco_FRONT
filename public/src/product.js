@@ -39,19 +39,28 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
 
     const formList = document.querySelector(".form-group");
     formList.innerHTML = `<label for="exampleFormControlSelect1">Example select</label>
-  <select class="form-control" id="exampleFormControlSelect1">
+  <select class="form-control" id="selectedLense">
     
   </select>
   `;
 
-    const selectLenses = document.querySelector(".form-control");
+    const selectLenses = document.querySelector("#selectedLense");
+    selectLenses.innerHTML = `<option onchange="myFunction()" class="LenseModel" value="">Choix de l'Objectif :</option>`;
+
     // Parourir les éléments à l'aide d'une boucle for
     for (let i = 0; i < lenses.length; i++) {
       // console.log(lenses[i]);
-      selectLenses.innerHTML += `<option value="${lenses[i]}">${lenses[i]}</option>`;
+      selectLenses.innerHTML += `<option onchange="myFunction()" class="LenseModel" value="${lenses[i]}">${lenses[i]}</option>`;
     }
+    // Get item lense selected
+    document.getElementById("selectedLense").onchange = function () {
+      var value = document.getElementById("selectedLense").value;
+      console.log(value);
+    };
 
-    // const testLoop = function(lenses){
-    //   for (){}
-    // }
+    // Get item quantity
+    document.getElementById("quantity").onchange = function () {
+      var value = document.getElementById("quantity").value;
+      console.log(value);
+    };
   });
