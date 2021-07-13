@@ -48,19 +48,31 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
     selectLenses.innerHTML = `<option onchange="myFunction()" class="LenseModel" value="">Choix de l'Objectif :</option>`;
 
     // Parourir les éléments à l'aide d'une boucle for
+
     for (let i = 0; i < lenses.length; i++) {
       // console.log(lenses[i]);
       selectLenses.innerHTML += `<option onchange="myFunction()" class="LenseModel" value="${lenses[i]}">${lenses[i]}</option>`;
     }
+
     // Get item lense selected
-    document.getElementById("selectedLense").onchange = function () {
-      var value = document.getElementById("selectedLense").value;
-      console.log(value);
-    };
+    let itemSelected = (document.getElementById("selectedLense").onchange =
+      function () {
+        let value = document.getElementById("selectedLense").value;
+        console.log(value);
+      });
 
     // Get item quantity
-    document.getElementById("quantity").onchange = function () {
-      var value = document.getElementById("quantity").value;
-      console.log(value);
-    };
+    let itemQuantity = (document.getElementById("quantity").onchange =
+      function () {
+        let value = document.getElementById("quantity").value;
+        console.log(value);
+      });
+
+    // Je crée une variable qui va stocker mes choix dans le local storage
+    let myChoiceSelection = localStorage.setItem(
+      itemSelected,
+      document.querySelector("option").value
+    );
+
+    // je crée une variable qui au click du bouton utilisera les deux variable précedentes
   });
