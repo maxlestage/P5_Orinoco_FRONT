@@ -17,13 +17,19 @@ fetch('http://localhost:3000/api/cameras')
         // custom console
         console.log(storedInputChoice.length);
         for (let i = 0; i < storedInputChoice.length; i += 1) {
-            const compactLenseSlected = Object.values(
-                storedInputChoice[i]
-            )[0].toString();
+            const compactLenseSlected = storedInputChoice[i].name.toString();
             tableBasket.innerHTML += `<tr>
-                <th scope="row">${Object.keys(storedInputChoice[i])}</th>
-                <td>${Object.values(storedInputChoice[i])[0][0]}</td>
-                <td>${Object.values(storedInputChoice[i])[0][1]}</td>
+                <th scope="row">${storedInputChoice[i].name}</th>
+                <td><img style="width: 16.66%"  class="img-fluid" src="${
+                    storedInputChoice[i].photo
+                }"></td>
+                <td>${storedInputChoice[i].option}</td>
+                <td>${storedInputChoice[i].quantite}</td>
+                <td>${storedInputChoice[i].prix / 100}€</td>
+                <td>${
+                    (storedInputChoice[i].prix / 100) *
+                    storedInputChoice[i].quantite
+                }€</td>
                 </tr>`;
             // document.body.innerHTML += `<p>${Object.keys(
             //   storedInputChoice[i]

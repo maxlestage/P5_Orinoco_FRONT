@@ -1,9 +1,13 @@
-/* eslint-disable no-console */
 const productIdUrl = window.location.search;
 // const { id } = Object.fromEntries(new URL(document.location).searchParams);
 // console.log(productIdUrl);
 // Utilisation de table Regex pour reformaté l'id afin de le verifier avec la liste, dans ce cas ci nous supprimons "?id=" = .substr(4)
 const compactUrl = /[^.]+/.exec(productIdUrl)[0].substr(4);
+let panier = localStorage.getItem('Panier');
+
+if (panier == null) {
+    panier = [];
+} else panier = JSON.parse(panier);
 
 fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
     .then((response) => response.json())
@@ -20,10 +24,10 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
         const productIdentifiant = data._id;
         const productDescription = data.description;
         const productPrice = data.price;
-        // Pour donner le title de l'ongletdynamiquement.
-        titleNameProduct.innerHTML = `Orinoco | ${productName}`;
-        // Pour donner le titre h1 dynamiquement à notre Appareil.
-        titleCardSpec.innerHTML = `${productName}`;
+
+        titleNameProduct.innerHTML = `Orinoco | ${productName}`; // Pour donner le title de l'ongletdynamiquement.
+
+        titleCardSpec.innerHTML = `${productName}`; // Pour donner le titre h1 dynamiquement à notre Appareil.
 
         card.innerHTML += `<div class="card mb-3">
     <img src="${productImage}" class="card-img-top" alt="Image de l'appareil ${productImage} en vente sur le site Orinoco">
@@ -37,7 +41,7 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
     <label for="staticEmail2" class="sr-only">Selected Quantity</label>
     <input type="number" id="quantity" name="quantity" min="0" max="5" class="form-control" placeholder="Quantité :">
     </div>
-    <button type="button" id="" class="btn btn-primary">Ajouter au panier</button>
+    <button type="button" id="addTobasket" class="btn btn-primary">Ajouter au panier</button>
     </div>
     </div>`;
 
@@ -53,26 +57,11 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
             '<option class="LenseModel" value="">Choix de l\'Objectif :</option>';
 
         // Parourir les éléments à l'aide d'une boucle for
-
         for (let i = 0; i < lenses.length; i += 1) {
-            // console.log(lenses[i]);
-            selectLenses.innerHTML += `<option onchange="myFunction()" class="LenseModel" value="${lenses[i]}">${lenses[i]}</option>`;
+            selectLenses.innerHTML += `<option class="LenseModel" value="${lenses[i]}">${lenses[i]}</option>`; // console.log(lenses[i]);
         }
 
-        // const inputChoice = [
-        //     { 'Hirsch 400DTS': ['60mm 2.8', 5] },
-        //     { 'Zurss 50S': ['35mm 1.4', 2] },
-        //     { 'Zurss 80S': ['35mm 1.4', 2] },
-        // ];
-        // [{}]
-        const arrayLense = [];
-        const selectedToObjet = {};
-        const myChoice = [];
-        const pushObjectIntoArray = arrayLense.push(selectedToObjet);
-        const formatedChoice = (selectedToObjet[productName] = myChoice);
-        console.log(formatedChoice);
-
-        // console.log("Je suis ici " + pushObjectIntoArray);
+        // [{“_id”: xxx, “name”: yyy, “quantité”: 2, “option”: c}]
 
         // Get item lense selected
         const itemSelected = (document.getElementById(
@@ -81,45 +70,81 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
             const valueSelected =
                 document.getElementById('selectedLense').value;
             console.log(valueSelected);
-            myChoice[0] = valueSelected;
         });
-
-        // LocalStorage de la valeur
-        const inputItem = document.getElementById('selectedLense');
-
-        // inputItem.value = localStorage.getItem("Panier");
-        inputItem.oninput = function (event) {
-            localStorage.setItem(
-                'Panier',
-                // JSON.stringify((selectedToObjet[productName] = myChoice[0]))
-                JSON.stringify(inputChoice)
-            );
-        };
 
         // Get item quantity
         const itemQuantity = (document.getElementById('quantity').onchange =
             function () {
-                const valueQuantity = document.getElementById('quantity').value;
+                var valueQuantity = document.getElementById('quantity').value;
                 console.log(valueQuantity);
-                myChoice[1] = valueQuantity;
             });
 
-        // LocalStorage de la quantity
-        const inputQuantity = document.getElementById('quantity');
+        let addToBasket = document
+            .getElementById('addTobasket')
+            // On ecoute l'événément, au click l'action se déclanche :
+            .addEventListener('click', function () {
+                const inputQuantity = document.getElementById('quantity').value;
+                const inputItem =
+                    document.getElementById('selectedLense').value;
+                // On vérifie si on a déjà un produit similaire
+                let produit = panier.find(
+                    (obj) => obj.id === compactUrl && obj.option === inputItem
+                );
+                console.log('Je suis là', produit);
 
-        // inputQuantity.value = localStorage.getItem("panier");
-        inputQuantity.oninput = function (event) {
-            localStorage.setItem(
-                'Panier',
-                // JSON.stringify((selectedToObjet[productName] = myChoice[1]))
-                JSON.stringify(inputChoice)
-            );
-        };
+                if (produit) {
+                    panier.filter(function (obj) {
+                        if (
+                            obj.option === null ||
+                            (obj.option === '' && obj.quantite === null)
+                        ) {
+                            alert('Hello! I am an alert box!!');
+                        }
+                        return false;
+                    });
+                }
 
-        //     Si je découpe le boulot :
-        // 1 je redéfini la clé Key sur "Panier", sa value est un tableau[] vide
-        // 2 je dois ajouter dans objet la selection des éléments {}
-        // 3 Je dois push cet objet dans ma value []
+                if (produit) {
+                    produit.quantite += parseInt(inputQuantity);
+                    panier.filter(function (obj) {
+                        if (obj.id === compactUrl && obj.option === inputItem) {
+                            return produit;
+                        }
+                        return obj;
+                    });
+                } else {
+                    panier.push({
+                        id: compactUrl,
+                        photo: productImage,
+                        name: productName,
+                        option: inputItem,
+                        quantite: parseInt(inputQuantity),
+                        prix: productPrice,
+                    });
+                }
 
-        // je crée une variable qui au click du bouton utilisera les deux variable précedentes
+                localStorage.setItem('Panier', JSON.stringify(panier));
+            });
     });
+
+/* tab = [{ id: 1 }, { id: 2 }, { id: 3 }];
+
+for (let obj of tab) {
+    if (obj.id === 2) return obj;
+}
+
+tab.forEach((obj) => {
+    if (obj.id === 2) return obj;
+});
+
+tab.filter(function (obj) {
+    return obj.id === 2;
+});
+
+let produit = panier.find(
+    (obj) => obj.id === compactUrl && obj.option === inputItem
+);
+
+if (produit) {
+    produit.quantite += 1;
+} */
