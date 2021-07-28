@@ -1,24 +1,9 @@
-fetch('http://localhost:3000/api/cameras')
-    .then((response) => response.json())
-    .then((data) => {
-        const productName = data.name;
-
-        // custom console
-        console.log(data);
-
-        const storedInputChoice = JSON.parse(localStorage.getItem('Panier'));
-
-        const output = document.createElement('p');
-        // output.textContent = localStorage.getItem("Panier");
-
-        const tableBasket = document.querySelector('#basketTable');
-
-        /* eslint no-console: "error" */
-        // custom console
-        console.log(storedInputChoice.length);
-        for (let i = 0; i < storedInputChoice.length; i += 1) {
-            const compactLenseSlected = storedInputChoice[i].name.toString();
-            tableBasket.innerHTML += `<tr>
+const storedInputChoice = JSON.parse(localStorage.getItem('Panier'));
+// const output = document.createElement('p');
+const tableBasket = document.querySelector('#basketTable');
+for (let i = 0; i < storedInputChoice.length; i += 1) {
+    const compactLenseSlected = storedInputChoice[i].name.toString();
+    tableBasket.innerHTML += `<tr>
                 <th scope="row">${storedInputChoice[i].name}</th>
                 <td><img style="width: 16.66%"  class="img-fluid" src="${
                     storedInputChoice[i].photo
@@ -31,15 +16,17 @@ fetch('http://localhost:3000/api/cameras')
                     storedInputChoice[i].quantite
                 }€</td>
                 </tr>`;
-            // document.body.innerHTML += `<p>${Object.keys(
-            //   storedInputChoice[i]
-            // )} ${Object.values(storedInputChoice[i])}</p>`;
-            // console.log(Object.values(storedInputChoice[i])[0][1]);
-        }
+}
 
-        window.addEventListener('storage', (event) => {
-            if (event.key === 'Panier') {
-                output.textContent = event.newValue;
-            }
-        });
-    });
+let myForm = document.getElementById('form');
+let formAction = myForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const address = document.getElementById('address');
+    const city = document.getElementById('city');
+    const email = document.getElementById('email');
+});
+
+//  Une fois la validation => ajout des types emails & verifier si sup+ à 2 caracteres ajout de requierd sur les inputs
+// si valide faire le fetch vers le post de l'api

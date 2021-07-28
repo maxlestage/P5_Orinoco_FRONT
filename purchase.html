@@ -10,7 +10,7 @@
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous"
         />
-        <script src="public/src/purchase.js"></script>
+        <link rel="icon" href="public/img/logo/orinoco.ico" />
         <title>Orinoco | Votre panier</title>
     </head>
 
@@ -46,8 +46,8 @@
             </nav>
         </header>
         <div class="container">
-            <table id="basketTable" class="table table-sm table-hover">
-                <h1>Votre Panier :</h1>
+            <h1>Votre Panier :</h1>
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Model</th>
@@ -58,7 +58,60 @@
                         <th scope="col">Prix totale</th>
                     </tr>
                 </thead>
+                <tbody id="basketTable"></tbody>
             </table>
+        </div>
+        <div class="container">
+            <form id="form">
+                <div class="form-group">
+                    <label for="firstName">Nom</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="firstName"
+                        placeholder="Enter Nom"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Prénom</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="lastName"
+                        placeholder="Enter Prénom"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        placeholder="Enter Address"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="city"
+                        placeholder="Enter City"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="email">email</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="Enter email"
+                    />
+                </div>
+                <button type="submit" id="submitForm" class="btn btn-primary">
+                    Submit
+                </button>
+            </form>
         </div>
     </body>
     <script
@@ -76,4 +129,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
     ></script>
+    <script src="public/src/purchase.js"></script>
+    <script src="public/src/contact.js"></script>
 </html>

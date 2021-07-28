@@ -5,7 +5,7 @@ const productIdUrl = window.location.search;
 const compactUrl = /[^.]+/.exec(productIdUrl)[0].substr(4);
 let panier = localStorage.getItem('Panier');
 
-if (panier == null) {
+if (panier === null) {
     panier = [];
 } else panier = JSON.parse(panier);
 
@@ -86,23 +86,23 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
                 const inputQuantity = document.getElementById('quantity').value;
                 const inputItem =
                     document.getElementById('selectedLense').value;
+
+                // Avertissemnt produit selectionné non valide soit objectif non selectionné ou quantité non renseignée ou les deux
+                if (
+                    inputItem == '' ||
+                    inputItem === null ||
+                    inputQuantity === null ||
+                    inputQuantity == '' ||
+                    (inputItem === null && inputQuantity === null)
+                ) {
+                    alert("Désolé, votre choix n'est pas complet.");
+                    return; // L'éxecution s'arrete si rien n'est valide.
+                }
+
                 // On vérifie si on a déjà un produit similaire
                 let produit = panier.find(
                     (obj) => obj.id === compactUrl && obj.option === inputItem
                 );
-                console.log('Je suis là', produit);
-
-                if (produit) {
-                    panier.filter(function (obj) {
-                        if (
-                            obj.option === null ||
-                            (obj.option === '' && obj.quantite === null)
-                        ) {
-                            alert('Hello! I am an alert box!!');
-                        }
-                        return false;
-                    });
-                }
 
                 if (produit) {
                     produit.quantite += parseInt(inputQuantity);
