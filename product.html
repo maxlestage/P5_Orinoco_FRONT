@@ -10,6 +10,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="public/css/main.css" />
     <link rel="icon" href="public/img/logo/orinoco.ico" />
     <script src="public/src/product.js"></script>
     <title id="title_Product"><!--  Orinoco | Nom item --></title>
@@ -36,8 +37,14 @@
               <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="purchase.html">Votre panier <span class="badge badge-pill badge-danger">1</span></a>
-            </li>
+                            <a class="nav-link" href="purchase.html"
+                                >Votre panier
+                                <span
+                                    id="badgeBasket"
+                                    class="badge badge-pill badge-danger"
+                                ></span>
+                            </a>
+                        </li>
           </ul>
         </div>
       </nav>
@@ -46,8 +53,8 @@
       <article>
         <h2 id="title" class="col-5"><!-- Ajout Nom item --></h1> 
         <section>
-          <div class="container">
-            <div class="row" id="main">
+          <div class="container card_full">
+            <div class="row justify-content-center" id="main">
               <!-- Ajout item detail -->
               
             </div>
@@ -71,6 +78,7 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
+  <script src="public/src/valueInBasket.js"></script>
   <script src="public/src/product.js"></script>
 </html>
 

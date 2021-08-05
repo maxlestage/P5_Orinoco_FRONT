@@ -122,8 +122,9 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
                         prix: productPrice,
                     });
                 }
-
+                alert('Votre selection a bien été ajouté au panier.');
                 localStorage.setItem('Panier', JSON.stringify(panier));
+                window.location.reload();
             });
     });
 
