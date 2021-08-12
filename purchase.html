@@ -1,148 +1,123 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-            crossorigin="anonymous"
-        />
-        <link rel="icon" href="public/img/logo/orinoco.ico" />
-        <link rel="stylesheet" href="public/css/main.css" />
-        <title>Orinoco | Votre panier</title>
-    </head>
 
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="/"><h1>Orinoco</h1></a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="purchase.html"
-                                >Votre panier
-                                <span
-                                    id="badgeBasket"
-                                    class="badge badge-pill badge-danger"
-                                ></span>
-                            </a>
-                        </li>
-                    </ul>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="icon" href="public/img/logo/orinoco.ico" />
+    <link rel="stylesheet" href="public/css/main.css" />
+    <title>Orinoco | Votre panier</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">
+                <h1>Orinoco</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="purchase.html">Votre panier
+                            <span id="badgeBasket" class="badge badge-pill badge-danger"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="container">
+            <h2>Votre Panier :</h1>
+                <article>
+                    <div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Model</th>
+                                    <th scope="col">Aperçu</th>
+                                    <th scope="col">Option</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Prix à l'unité</th>
+                                    <th scope="col">Prix pour la selection</th>
+                                    <th scope="col">Modifier la selection</th>
+                                </tr>
+                            </thead>
+                            <tbody id="basketTable"></tbody>
+                        </table>
+                        <p class="totalPrice"></p>
+                    </div>
+                </article>
+                <div class="container jumbotron h-50 d-inline-block">
+                    <h3>Veuillez compléter le formulaire pour valider votre commande</h3>
+                    <form id="form" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="firstName">Nom</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Ex: Jean"
+                                    required />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="lastName">Prénom</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Ex: Pierre"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Adresse</label>
+                            <input type="text" class="form-control" id="address" placeholder="Votre lieu de résidence"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Votre Ville</label>
+                            <input type="text" class="form-control" id="city" placeholder="Ex: Paris" required />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email"
+                                    placeholder="Ex: jean.pierre@mail.com" required />
+                            </div>
+                        </div>
+                        <button type="submit" id="submitForm" class="btn btn-primary">
+                            Valider
+                        </button>
+
+                    </form>
                 </div>
-            </nav>
-        </header>
-        <div class="container">
-            <h1>Votre Panier :</h1>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Model</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Lense</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Prix à l'unité</th>
-                        <th scope="col">Prix totale</th>
-                        <th scope="col">Modifier la selection</th>
-                    </tr>
-                </thead>
-                <tbody id="basketTable"></tbody>
-            </table>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <!-- Copyright -->
+        <div class="text-center p-4">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="/">Orinoco</a>
         </div>
-        <div class="container">
-            <form id="form" method="POST">
-                <div class="form-group">
-                    <label for="firstName">Nom</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="firstName"
-                        placeholder="Veuillez saisir votre Nom"
-                        pattern="/^[a-zA-ZéèîïÉÈÎÏ][A-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Prénom</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="lastName"
-                        placeholder="Veuillez saisir votre Prénom"
-                        pattern="/^[a-zA-ZéèîïÉÈÎÏ][A-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="address">Adresse</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="address"
-                        placeholder="Veuillez saisir votre Adresse"
-                        pattern="/^[a-zA-ZéèîïÉÈÎÏ][A-zéèêàçîï]+([-'\s][a-zA-ZéèîïÉÈÎÏ][a-zéèêàçîï]+)?$/"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="city">Votre Ville</label>
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="city"
-                        placeholder="Veuillez saisir votre Ville"
-                        pattern="/^\d+\s[A-z]+\s[A-z]+/"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input
-                        type="email"
-                        class="form-control"
-                        id="email"
-                        pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/"
-                        placeholder="Veuillez saisir votre Email"
-                        required
-                    />
-                </div>
-                <button type="submit" id="submitForm" class="btn btn-primary">
-                    Submit
-                </button>
-            </form>
-        </div>
-    </body>
-    <script
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"
-    ></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"
-    ></script>
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"
-    ></script>
-    <script src="public/src/valueInBasket.js"></script>
-    <script src="public/src/purchase.js"></script>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="public/src/valueInBasket.js"></script>
+<script src="public/src/purchase.js"></script>
+
 </html>

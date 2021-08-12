@@ -17,7 +17,7 @@ for (let i = 0; i < storedInputChoice.length; i += 1) {
                 <td>${storedInputChoice[i].option}</td>
                 <td>${storedInputChoice[i].quantite}</td>
                 <td>${storedInputChoice[i].prix / 100}€</td>
-                <td>${
+                <td class="countPriceAdd">${
                     (storedInputChoice[i].prix / 100) *
                     storedInputChoice[i].quantite
                 }€</td>
@@ -57,34 +57,96 @@ deleteChoice.forEach(function (deleteChoice) {
     });
 });
 
+// Effacer le Panier
+// const clearData = localStorage.clear();
+
+// Obtenir le prix total de tous les éléménts
+// const tr = document.getElementsByTagName('tr')[5];
+const td = document.querySelectorAll('.countPriceAdd');
+let tdTotalQuantityPrice = function () {
+    let price = 0;
+    for (let i = 0; i < td.length; i += 1) {
+        priceTextContentToInt = parseInt(`${td[i].textContent}`);
+        price = price + priceTextContentToInt;
+    }
+    return price;
+};
+
+let tdTotalQuantity = function () {
+    let quantity = 0;
+
+    if (td.length === 1) {
+        quantity = 1;
+    } else if (td.length === 0) {
+        quantity = 0;
+    }
+
+    for (let i = 0; i < td.length; i += 1) {
+        quantity = quantity + i;
+    }
+    return quantity;
+};
+
+let resultTotalPrice = function (a) {
+    return a;
+};
+
+tdTotalQuantityPrice();
+tdTotalQuantity();
+// resultTotalPrice();
+
+let selectPTotalePrice = document.querySelector('.totalPrice');
+const total = resultTotalPrice(tdTotalQuantityPrice());
+if (total === 0) {
+    selectPTotalePrice.innerHTML = `Votre panier est vide.`;
+    let hiddenForm = document.querySelector('form');
+    hiddenForm.innerHTML = '';
+} else {
+    selectPTotalePrice.innerHTML = `Le prix totale pour la selection est de <span class="badge badge-secondary">${total} €</span> `;
+    let clearAllButton = document.querySelector('.container');
+    let clearButton = document.createElement('button');
+    clearButton.classList.add('btn', 'btn-outline-danger', 'clearAllButton');
+    clearAllButton.appendChild(clearButton);
+    clearButton.innerHTML = 'Vider le panier';
+    clearButton.addEventListener('click', function () {
+        // localStorage.clear();
+        panier = [];
+        localStorage.setItem('Panier', JSON.stringify(panier));
+        window.location.reload();
+    });
+}
+
 // Abandonner le panier
 // let cancelAllBtn = document.querySelector;
 
 function sendform(paramContact, paramProducts) {
     // APEL API AVEC FETCH // ENVOIE DES DONNEES AVEC POST
-    fetch('http://localhost:3000/api/cameras/order', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-        },
-        mode: 'cors',
-        body: JSON.stringify({
-            contact: paramContact,
-            products: paramProducts,
-        }),
-    })
-        .then(function (response) {
-            return response.json();
+    return (
+        fetch('http://localhost:3000/api/cameras/order', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            mode: 'cors',
+            body: JSON.stringify({
+                contact: paramContact,
+                products: paramProducts,
+            }),
         })
-        //SI Erreur API
-        .catch(function (err) {
-            console.alert('fetch Error');
-        });
+            .then(function (response) {
+                return response.json();
+            })
+            //SI Erreur API
+            .catch(function (err) {
+                console.log('fetch Error');
+            })
+    );
 }
 
 let myForm = document.getElementById('form');
 let formAction = myForm.addEventListener('submit', (event) => {
     event.preventDefault();
+    // /^[a-Z]{2,}/;
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
     const address = document.getElementById('address').value;
@@ -92,20 +154,25 @@ let formAction = myForm.addEventListener('submit', (event) => {
 
     // On verifie si l'adresse email est conforme
     const email = document.getElementById('email').value;
-    if (email) {
-        function validateEmail(email) {
-            const regex = /\A[^@\s]+@[^@\s]+\z/;
-            return regex.test(email);
-        }
-        validateEmail(email);
+
+    const regMail = /([a-z]|\w)+@([a-z]|\w+\d)+.([a-z]|\w)*/;
+    function validateEmail(email) {
+        return regMail.test(email);
+    }
+    if (!validateEmail(email)) {
+        alert('Erreur validation email');
+        return;
     }
 
     const contact = { firstName, lastName, address, city, email };
     const basketParsed = JSON.parse(localStorage.getItem('Panier'));
     const paramProducts = [];
-
+    console.log('je suis là', basketParsed);
     for (let i = 0; i < basketParsed.length; i += 1)
         paramProducts.push(basketParsed[i].id);
-    sendform(contact, paramProducts);
+    sendform(contact, paramProducts).then(function (data) {
+        // console.log(data);
+        window.location = `confirm.html?id=${data.orderId}&total=${total}&firstName=${firstName}&lastName=${lastName}`;
+    });
 });
 // Utilis& du regex pour valider les inputs, pas d'envoie si tableau vide. si les conditions reunis sont valide je send form avec mes params

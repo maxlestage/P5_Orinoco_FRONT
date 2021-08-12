@@ -15,10 +15,9 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
         const card = document.getElementById('main');
         const titleCardSpec = document.getElementById('title');
         const titleNameProduct = document.getElementById('title_Product');
-        // console.log(data);
+
         const { lenses } = data;
-        // console.log(compactUrl);
-        // for (let product of data) {
+
         const productImage = data.imageUrl;
         const productName = data.name;
         const productIdentifiant = data._id;
@@ -37,10 +36,17 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
     <div class="form-group">
 
     </div>
-    <div class="form-group mb-2">
+   
+     <div class="form-group mb-2">
     <label for="staticEmail2" class="sr-only">Selected Quantity</label>
-    <input type="number" id="quantity" name="quantity" min="0" max="5" class="form-control" placeholder="Quantité :">
-    </div>
+    <select class="form-control" name="quantity" id="quantity" class="form-control" >
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
     <button type="button" id="addTobasket" class="btn btn-primary">Ajouter au panier</button>
     </div>
     </div>`;
@@ -67,15 +73,14 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
         const itemSelected = (document.getElementById(
             'selectedLense'
         ).onchange = function () {
-            const valueSelected =
-                document.getElementById('selectedLense').value;
+            let valueSelected = document.getElementById('selectedLense').value;
             console.log(valueSelected);
         });
 
         // Get item quantity
         const itemQuantity = (document.getElementById('quantity').onchange =
             function () {
-                var valueQuantity = document.getElementById('quantity').value;
+                let valueQuantity = document.getElementById('quantity').value;
                 console.log(valueQuantity);
             });
 
@@ -87,7 +92,7 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
                 const inputItem =
                     document.getElementById('selectedLense').value;
 
-                // Avertissemnt produit selectionné non valide soit objectif non selectionné ou quantité non renseignée ou les deux
+                // Avertissemnt produit selectionné non valide, soit option non selectionné ou quantité non renseignée ou les deux
                 if (
                     inputItem == '' ||
                     inputItem === null ||
@@ -149,3 +154,8 @@ let produit = panier.find(
 if (produit) {
     produit.quantite += 1;
 } */
+
+//  <div class="form-group mb-2">
+//     <label for="staticEmail2" class="sr-only">Selected Quantity</label>
+//     <input type="number" id="quantity" name="quantity" min="0" max="5" class="form-control" placeholder="Quantité :">
+//     </div>
