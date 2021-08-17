@@ -2,10 +2,12 @@
 // console.log(localStorage.getItem('Panier'));
 const badgeBasketContent = document.querySelector('#badgeBasket');
 const myBasketContent = JSON.parse(localStorage.getItem('Panier')).length;
-const myBasket = function () {
+(function () {
     if (myBasketContent > 0) {
         valueInBasket = document.createTextNode(`${myBasketContent}`);
         badgeBasketContent.appendChild(valueInBasket);
+    } else {
+        valueInBasket = document.createTextNode('');
+        badgeBasketContent.appendChild(valueInBasket);
     }
-};
-myBasket();
+})();

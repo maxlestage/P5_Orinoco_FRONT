@@ -99,8 +99,8 @@ let selectPTotalePrice = document.querySelector('.totalPrice');
 const total = resultTotalPrice(tdTotalQuantityPrice());
 if (total === 0) {
     selectPTotalePrice.innerHTML = `Votre panier est vide.`;
-    let hiddenForm = document.querySelector('form');
-    hiddenForm.innerHTML = '';
+    let hiddenForm = document.querySelector('#form');
+    hiddenForm.innerHTML = ' ';
 } else {
     selectPTotalePrice.innerHTML = `Le prix totale pour la selection est de <span class="badge badge-secondary">${total} €</span> `;
     let clearAllButton = document.querySelector('.container');
@@ -115,9 +115,6 @@ if (total === 0) {
         window.location.reload();
     });
 }
-
-// Abandonner le panier
-// let cancelAllBtn = document.querySelector;
 
 function sendform(paramContact, paramProducts) {
     // APEL API AVEC FETCH // ENVOIE DES DONNEES AVEC POST
@@ -147,14 +144,32 @@ let myForm = document.getElementById('form');
 let formAction = myForm.addEventListener('submit', (event) => {
     event.preventDefault();
     // /^[a-Z]{2,}/;
+
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
     const address = document.getElementById('address').value;
     const city = document.getElementById('city').value;
-
-    // On verifie si l'adresse email est conforme
     const email = document.getElementById('email').value;
 
+    // On verifie si le nom et le prenom est conforme
+    const regName = /[A-Za-z]{1,32}/;
+    function validateName(firstName) {
+        return regName.test(firstName);
+    }
+    if (!validateEmail(firstName)) {
+        alert('Erreur validation firstName');
+        return;
+    }
+
+    function validateName(lastName) {
+        return regName.test(lastName);
+    }
+    if (!validateEmail(lastName)) {
+        alert('Erreur validation lastName');
+        return;
+    }
+
+    // On verifie si l'adresse email est conforme
     const regMail = /([a-z]|\w)+@([a-z]|\w+\d)+.([a-z]|\w)*/;
     function validateEmail(email) {
         return regMail.test(email);
@@ -167,7 +182,7 @@ let formAction = myForm.addEventListener('submit', (event) => {
     const contact = { firstName, lastName, address, city, email };
     const basketParsed = JSON.parse(localStorage.getItem('Panier'));
     const paramProducts = [];
-    console.log('je suis là', basketParsed);
+
     for (let i = 0; i < basketParsed.length; i += 1)
         paramProducts.push(basketParsed[i].id);
     sendform(contact, paramProducts).then(function (data) {
