@@ -25,10 +25,10 @@ body {
     height: 16em;
     object-fit: cover;
 }
-/* Product Card Size */
+/* Product Card Size
 .card_full {
     width: 40% !important;
-}
+} */
 
 /* Resize Boootstrap Button Basket */
 .bootstrap_btn_size {

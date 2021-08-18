@@ -2,9 +2,8 @@ const productIdUrl = window.location.search;
 // const { id } = Object.fromEntries(new URL(document.location).searchParams);
 // console.log(productIdUrl);
 // Utilisation de table Regex pour reformaté l'id afin de le verifier avec la liste, dans ce cas ci nous supprimons "?id=" = .substr(4)
-const compactUrl = /[^.]+/.exec(productIdUrl)[0].substr(4);
+let compactUrl = /[^.]+/.exec(productIdUrl)[0].substr(4);
 let panier = localStorage.getItem('Panier');
-
 if (panier === null) {
     panier = [];
 } else panier = JSON.parse(panier);
@@ -20,7 +19,7 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
 
         const productImage = data.imageUrl;
         const productName = data.name;
-        const productIdentifiant = data._id;
+        // const productIdentifiant = data._id;
         const productDescription = data.description;
         const productPrice = data.price;
 
