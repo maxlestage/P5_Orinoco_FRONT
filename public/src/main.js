@@ -13,4 +13,7 @@ fetch('http://localhost:3000/api/cameras')
       </div>
       </div>`;
         }
+    })
+    .catch((err) => {
+        console.log(err);
     });

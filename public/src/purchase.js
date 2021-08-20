@@ -173,3 +173,6 @@ let formAction = myForm.addEventListener('submit', (event) => {
         window.location = `confirm.html?id=${data.orderId}&total=${total}&firstName=${firstName}&lastName=${lastName}`;
     });
 });
+
+
+(function (){}())
