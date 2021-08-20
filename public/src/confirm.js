@@ -4,7 +4,6 @@ const id = url.searchParams.get('id');
 const total = url.searchParams.get('total');
 const firstName = url.searchParams.get('firstName');
 const lastName = url.searchParams.get('lastName');
-console.log(total);
 
 let date = new Date();
 
