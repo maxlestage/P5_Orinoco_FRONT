@@ -72,28 +72,11 @@ let tdTotalQuantityPrice = function () {
     return price;
 };
 
-let tdTotalQuantity = function () {
-    let quantity = 0;
-
-    if (td.length === 1) {
-        quantity = 1;
-    } else if (td.length === 0) {
-        quantity = 0;
-    }
-
-    for (let i = 0; i < td.length; i += 1) {
-        quantity = quantity + i;
-    }
-    return quantity;
-};
-
 let resultTotalPrice = function (a) {
     return a;
 };
 
 tdTotalQuantityPrice();
-tdTotalQuantity();
-// resultTotalPrice();
 
 let selectPTotalePrice = document.querySelector('.totalPrice');
 const total = resultTotalPrice(tdTotalQuantityPrice());

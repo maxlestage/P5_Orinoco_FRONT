@@ -68,21 +68,6 @@ fetch(`http://localhost:3000/api/cameras/${compactUrl}`)
 
         // [{“_id”: xxx, “name”: yyy, “quantité”: 2, “option”: c}]
 
-        // Get item lense selected
-        const itemSelected = (document.getElementById(
-            'selectedLense'
-        ).onchange = function () {
-            let valueSelected = document.getElementById('selectedLense').value;
-            console.log(valueSelected);
-        });
-
-        // Get item quantity
-        const itemQuantity = (document.getElementById('quantity').onchange =
-            function () {
-                let valueQuantity = document.getElementById('quantity').value;
-                console.log(valueQuantity);
-            });
-
         let addToBasket = document
             .getElementById('addTobasket')
             // On ecoute l'événément, au click l'action se déclanche :
