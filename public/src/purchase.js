@@ -136,18 +136,18 @@ let formAction = myForm.addEventListener('submit', (event) => {
 
     // On verifie si le nom et le prenom est conforme
     const regName = /[A-Za-z]{1,32}/;
-    function validateName(firstName) {
+    function validatefirstName(firstName) {
         return regName.test(firstName);
     }
-    if (!validateEmail(firstName)) {
+    if (!validatefirstName(firstName)) {
         alert('Erreur validation firstName');
         return;
     }
 
-    function validateName(lastName) {
+    function validatelastName(lastName) {
         return regName.test(lastName);
     }
-    if (!validateEmail(lastName)) {
+    if (!validatelastName(lastName)) {
         alert('Erreur validation lastName');
         return;
     }
@@ -173,4 +173,3 @@ let formAction = myForm.addEventListener('submit', (event) => {
         window.location = `confirm.html?id=${data.orderId}&total=${total}&firstName=${firstName}&lastName=${lastName}`;
     });
 });
-// Utilis& du regex pour valider les inputs, pas d'envoie si tableau vide. si les conditions reunis sont valide je send form avec mes params
