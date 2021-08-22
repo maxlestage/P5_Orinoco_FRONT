@@ -13,4 +13,11 @@ displayName.innerHTML = `Merci pour votre commande : <span class="text-secondary
 
 const selectElement = document.querySelector('p');
 selectElement.innerHTML = `Votre commande du ${date} porte le numéro <span class="badge badge-secondary">${id}</span><br/> Pour un montant total de : <span class="badge badge-secondary">${total}</span> € <br/><br/> Nous traitons votre commande au plus vite, Orinico vous remercie de votre confiance.`;
-// localStorage.clear();
+
+localStorage.clear();
+let panier = localStorage.getItem('Panier');
+
+if (panier === null) {
+    panier = [];
+    localStorage.setItem('Panier', JSON.stringify(panier));
+}
