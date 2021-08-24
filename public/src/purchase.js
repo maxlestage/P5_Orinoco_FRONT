@@ -149,7 +149,7 @@ let formAction = myForm.addEventListener('submit', (event) => {
     }
 
     // On verifie si l'adresse email est conforme
-    const regMail = /([a-z]|\w)+@([a-z]|\w+\d)+.([a-z]|\w)*/;
+    const regMail = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
     function validateEmail(email) {
         return regMail.test(email);
     }
