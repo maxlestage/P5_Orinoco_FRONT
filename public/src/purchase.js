@@ -136,7 +136,7 @@ let formAction = myForm.addEventListener('submit', (event) => {
         return regName.test(firstName);
     }
     if (!validatefirstName(firstName)) {
-        alert('Erreur de validation du Nom');
+        alert('Erreur de validation du Prénom');
         return;
     }
 
@@ -144,7 +144,7 @@ let formAction = myForm.addEventListener('submit', (event) => {
         return regName.test(lastName);
     }
     if (!validatelastName(lastName)) {
-        alert('Erreur de validation du Prénom');
+        alert('Erreur de validation du Nom');
         return;
     }
 
