@@ -57,9 +57,6 @@ deleteChoice.forEach(function (deleteChoice) {
     });
 });
 
-// Effacer le Panier
-// const clearData = localStorage.clear();
-
 // Obtenir le prix total de tous les éléménts
 // const tr = document.getElementsByTagName('tr')[5];
 const td = document.querySelectorAll('.countPriceAdd');
@@ -127,7 +124,6 @@ let myForm = document.getElementById('form');
 let formAction = myForm.addEventListener('submit', (event) => {
     event.preventDefault();
     // /^[a-Z]{2,}/;
-
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
     const address = document.getElementById('address').value;
@@ -174,5 +170,4 @@ let formAction = myForm.addEventListener('submit', (event) => {
     });
 });
 
-
-(function (){}())
+// (function () {})();
